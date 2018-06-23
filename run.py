@@ -3,16 +3,16 @@
 import threading
 from Queue import Queue
 from SJR_spider import SJR_Spider
-from static_info import MAX_THREAD_COUNT, CATEGORY_CODE
-
+from static_info import MAX_THREAD_COUNT, JOURNAL_COLLECTION, MATCH_COLLECTION
+from SJR_mongodb import SJR_mongodb
 
 def get_journal_info(cate_list):
     queue = Queue()
     threads = []
     lock = threading.Lock()
-    journal_info = {}
+    cate_info = {}
     for i in xrange(MAX_THREAD_COUNT):
-        t = SJR_Spider(lock=lock, queue=queue, result=journal_info)
+        t = SJR_Spider(lock=lock, queue=queue, result=cate_info)
         threads.append(t)
     for cate_code in cate_list:
         queue.put(cate_code)
@@ -21,11 +21,28 @@ def get_journal_info(cate_list):
     for t in threads:
         t.join()
 
-    print 'JOURNAL INFO Done!'
+    # 考虑一个journal分属多个categories
+    journal_info = {}
+    for cate, jour_list in cate_info.items():
+        for each in jour_list:
+            journal_info.setdefault(each, [])
+            journal_info[each].append(cate)
+
     return journal_info
+
+def op_on_mongodb():
+    pass
 
 if __name__ == '__main__':
     cate_list = range(2501, 2510)
     journal_info = get_journal_info(cate_list)
-    for each in journal_info.items():
-        print each
+    print len(journal_info)
+
+    mongo_obj = SJR_mongodb()
+    mongo_obj.insert_journal_collection(journal_dict=journal_info)
+    print '{} update success!'.format(JOURNAL_COLLECTION)
+
+    mongo_obj.match_journal_area_categories(journal_dict=journal_info)
+    print '{} update success!'.format(MATCH_COLLECTION)
+
+    mongo_obj.close()

@@ -1,4 +1,5 @@
-
+# !usr/bin/env python
+# _*_ coding:utf-8 _*_
 
 MAX_THREAD_COUNT = 10
 
@@ -17,3 +18,11 @@ CATEGORY_CODE = {2501: 'Materials Science (miscellaneous)',
                  2508: 'Surfaces, Coatings and Films',
                  2509: 'Nanoscience and Nanotechnology',
                  }
+
+# ps:命名不能有空格，神坑
+# sb建表不报错，删表删不掉，用getCollection().renameCollection()重命名
+JOURNAL_COLLECTION = "Materials_Science"
+MATCH_COLLECTION = "Materials_Science_2"
+SUBJECT_AREA = "Materials Science"
+
+LOG_FILE_INFO = './SJR_collect.log'
