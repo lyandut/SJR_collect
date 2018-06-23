@@ -43,7 +43,7 @@ class SJR_mongodb(object):
         counter = 0
         for i in range(9):
             collection = self.database["mag_papers_" + str(i)]
-            cursor = collection.find()
+            cursor = collection.find(no_cursor_timeout=True)  # 设置cursor永不超时
             try:
                 for doc in cursor:
                     if "venue" in doc:
@@ -55,10 +55,7 @@ class SJR_mongodb(object):
                             insert_item['venue'] = journal
                             insert_item['subject_area'] = SUBJECT_AREA
                             insert_item['subject_categories'] = journal_dict[journal]
-                            match_id = match_collection.insert(insert_item)
-                            counter = counter + 1
-                            if counter >= len(journal_dict):
-                                break
+                            match_id = match_collection.save(insert_item)
                             logger_info.info('{} insert success!'.format(match_id))
                     else:
                         logger_info.error('{} has no venue!'.format(doc['_id']))

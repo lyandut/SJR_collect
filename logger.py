@@ -4,7 +4,7 @@ import logging
 from static_info import LOG_FILE_INFO
 
 class Logger:
-    def __init__(self, path, clevel=logging.ERROR, flevel=logging.DEBUG):
+    def __init__(self, path, clevel=logging.DEBUG, flevel=logging.DEBUG):
         self.logger = logging.getLogger(path)
         self.logger.setLevel(logging.DEBUG)
         fmt = logging.Formatter('[%(asctime)s] [%(levelname)s] %(message)s', '%Y-%m-%d %H:%M:%S')
