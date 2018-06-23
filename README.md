@@ -92,7 +92,6 @@ SUBJECT_AREA = "Materials Science"
 ```
 
 ## 成果展示
-https://github.com/lyandut/SJR_collect/blob/master/run.py
 ### 运行截图
 原数据集中有大量数据不包含"venue"字段，无法做领域划分匹配
 
