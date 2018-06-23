@@ -18,6 +18,8 @@ CATEGORY_CODE = {2501: 'Materials Science (miscellaneous)',
                  2508: 'Surfaces, Coatings and Films',
                  2509: 'Nanoscience and Nanotechnology',
                  }
+START_CODE = 2501
+END_CODE = 2510
 
 # ps:命名不能有空格，神坑
 # sb建表不报错，删表删不掉，用getCollection().renameCollection()重命名

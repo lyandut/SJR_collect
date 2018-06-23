@@ -3,7 +3,7 @@
 import threading
 from Queue import Queue
 from SJR_spider import SJR_Spider
-from static_info import MAX_THREAD_COUNT, JOURNAL_COLLECTION, MATCH_COLLECTION
+from static_info import MAX_THREAD_COUNT, JOURNAL_COLLECTION, MATCH_COLLECTION, START_CODE, END_CODE
 from SJR_mongodb import SJR_mongodb
 import traceback
 
@@ -35,7 +35,7 @@ def op_on_mongodb():
     pass
 
 if __name__ == '__main__':
-    cate_list = range(2501, 2510)
+    cate_list = range(START_CODE, END_CODE)
     journal_info = get_journal_info(cate_list)
     print len(journal_info)
     
