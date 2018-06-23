@@ -99,7 +99,7 @@ SUBJECT_AREA = "Materials Science"
 ### 需求1
 ![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.PNG)
 ### 需求2
-![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.PNG)
+![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand2.PNG)
 
 ## 总结
 
