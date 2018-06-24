@@ -43,9 +43,10 @@ class SJR_mongodb(object):
         for journal in journal_dict:
             for i in range(9):
                 collection = self.database["mag_papers_" + str(i)]
-                cursor = collection.find({'venue': journal}, no_cursor_timeout=True)  # 设置cursor永不超时
+                cursor = collection.find({'venue': journal}, {'title': 1, 'id': 1}, no_cursor_timeout=True)  # 设置cursor永不超时
                 try:
                     for doc in cursor:
+                        print '{} match with {}'.format(doc['_id'], journal)
                         insert_item['_id'] = doc['_id']
                         insert_item['title'] = doc['title']
                         insert_item['id'] = doc['id']
