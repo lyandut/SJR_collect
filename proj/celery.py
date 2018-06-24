@@ -5,7 +5,7 @@ from __future__ import absolute_import
 from celery import Celery
 
 app = Celery('proj',
-             broker='redis://localhost',
+             broker='redis://localhost:6379/0',
              # include=['proj.tasks']
              )
 

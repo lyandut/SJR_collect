@@ -2,11 +2,20 @@ SJR_collect
 ===
 **Microsoft database Processing**
 
+**Ps:新版程序配置celery并发50个worker提高效率，下文运行步骤失效**
 
 ## 环境依赖
 **Python 2.7**
 
 **MongoDB 3.6**
+
+**Redis**
+
+## 运行命令
+
+`celery -A proj worker -c 50 -l info`
+
+`python run.py`
 
 ## 运行步骤
 
@@ -15,10 +24,12 @@ SJR_collect
    `pip install xxx`
    
    ```
-   lxml==4.2.2
-	pymongo==3.6.1
+    lxml==4.2.2
+    pymongo==3.6.1
 	requests==2.18.1
 	virtualenv==16.0.0
+	celery==3.1.25（windows不支持4.0版）
+	celery-with-redis
    ```
 
 2. 克隆到本地仓库
