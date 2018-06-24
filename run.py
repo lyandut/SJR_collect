@@ -37,6 +37,10 @@ def main():
     journal_info = get_journal_info(cate_list)
     print len(journal_info)
 
+    mongo_obj = SJR_mongodb()
+    mongo_obj.insert_journal_collection(journal_dict=journal_info)
+    print '{} update success!'.format(JOURNAL_COLLECTION)
+
     for journal in journal_info:
         op_on_mongo_match_collection.apply_async(args=(journal, journal_info))
 
