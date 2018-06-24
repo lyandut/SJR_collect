@@ -40,24 +40,46 @@ class SJR_mongodb(object):
     def match_journal_area_categories(self, journal_dict):
         match_collection = self.database[MATCH_COLLECTION]
         insert_item = {}
-        counter = 0
-        for i in range(9):
-            collection = self.database["mag_papers_" + str(i)]
-            cursor = collection.find(no_cursor_timeout=True)  # 设置cursor永不超时
-            try:
-                for doc in cursor:
-                    if "venue" in doc:
-                        journal = doc["venue"]
-                        if journal in journal_dict:
-                            insert_item['_id'] = doc['_id']
-                            insert_item['title'] = doc['title']
-                            insert_item['id'] = doc['id']
-                            insert_item['venue'] = journal
-                            insert_item['subject_area'] = SUBJECT_AREA
-                            insert_item['subject_categories'] = journal_dict[journal]
-                            match_id = match_collection.save(insert_item)
-                            logger_info.info('{} insert success!'.format(match_id))
-                    else:
-                        logger_info.error('{} has no venue!'.format(doc['_id']))
-            finally:
-                cursor.close()
+        for journal in journal_dict:
+            for i in range(9):
+                collection = self.database["mag_papers_" + str(i)]
+                cursor = collection.find({'venue': journal}, no_cursor_timeout=True)  # 设置cursor永不超时
+                try:
+                    for doc in cursor:
+                        insert_item['_id'] = doc['_id']
+                        insert_item['title'] = doc['title']
+                        insert_item['id'] = doc['id']
+                        insert_item['venue'] = journal
+                        insert_item['subject_area'] = SUBJECT_AREA
+                        insert_item['subject_categories'] = journal_dict[journal]
+                        match_id = match_collection.save(insert_item)
+                        insert_item.clear()
+                        logger_info.info('{} insert success!'.format(match_id))
+                finally:
+                    cursor.close()
+            logger_info.info('{} match success!'.format(journal))
+
+    # def match_journal_area_categories(self, journal_dict):
+    #     match_collection = self.database[MATCH_COLLECTION]
+    #     insert_item = {}
+    #     counter = 0
+    #     for i in range(9):
+    #         collection = self.database["mag_papers_" + str(i)]
+    #         cursor = collection.find(no_cursor_timeout=True)  # 设置cursor永不超时
+    #         try:
+    #             for doc in cursor:
+    #                 if "venue" in doc:
+    #                     journal = doc["venue"]
+    #                     if journal in journal_dict:
+    #                         insert_item['_id'] = doc['_id']
+    #                         insert_item['title'] = doc['title']
+    #                         insert_item['id'] = doc['id']
+    #                         insert_item['venue'] = journal
+    #                         insert_item['subject_area'] = SUBJECT_AREA
+    #                         insert_item['subject_categories'] = journal_dict[journal]
+    #                         match_id = match_collection.save(insert_item)
+    #                         logger_info.info('{} insert success!'.format(match_id))
+    #                 else:
+    #                     logger_info.error('{} has no venue!'.format(doc['_id']))
+    #         finally:
+    #             cursor.close()

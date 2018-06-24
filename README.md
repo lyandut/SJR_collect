@@ -92,15 +92,14 @@ SUBJECT_AREA = "Materials Science"
 ```
 
 ## 成果展示
-https://github.com/lyandut/SJR_collect/blob/master/run.py
 ### 运行截图
 原数据集中有大量数据不包含"venue"字段，无法做领域划分匹配
 
-![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/run.png)
+![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/run.PNG)
 ### 需求1
-![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.png)
+![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.PNG)
 ### 需求2
-![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.png)
+![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand2.PNG)
 
 ## 总结
 
