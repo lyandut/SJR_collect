@@ -2,7 +2,7 @@ SJR_collect
 ===
 **Microsoft database Processing**
 
-**Ps:新版程序配置celery并发50个worker提高效率，下文运行步骤失效**
+**Ps:新版程序配置celery并发50个worker写入数据库提高效率**
 
 ## 环境依赖
 **Python 2.7**
@@ -10,12 +10,6 @@ SJR_collect
 **MongoDB 3.6**
 
 **Redis**
-
-## 运行命令
-
-`celery -A proj worker -c 50 -l info`
-
-`python run.py`
 
 ## 运行步骤
 
@@ -37,12 +31,24 @@ SJR_collect
    `git clone https://github.com/lyandut/SJR_collect.git` 
 
 3. 运行程序
-   
-   `python run.py`
+    
+    `run.py`中编写了两个运行方法`if __name__ == '__main__':`,
+    
+    - 默认使用celery任务队列并发写入MongoDB：
+    
+        `celery -A proj worker -c 50 -l info`
+        
+        `python run.py`
+     
+    - 如果想运行单进程写入MongoDB的方法，请注释/取消注释相应的代码，然后运行：
+        
+        `python run.py`
 
 ## 目录结构
 ```
 ├── README.md           
+├── proj                // celery proj,包括app、tasks、config
+├── Screenshots         // 截图文件夹 
 ├── static_info.py      // 静态参数配置文件 
 ├── main.py             // 单线程爬虫程序,用于测试和输出样例
 ├── run.py              // 运行程序，多线程爬虫 + 写入数据库
@@ -103,12 +109,12 @@ SUBJECT_AREA = "Materials Science"
 ```
 
 ## 成果展示
-### 运行截图
-原数据集中有大量数据不包含"venue"字段，无法做领域划分匹配
 
-![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/run.PNG)
+### 运行截图
+
 ### 需求1
 ![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand1.PNG)
+
 ### 需求2
 ![Alt text](https://github.com/lyandut/SJR_collect/blob/master/Screenshots/demand2.PNG)
 

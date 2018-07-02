@@ -40,28 +40,37 @@ def main():
     mongo_obj = SJR_mongodb()
     mongo_obj.insert_journal_collection(journal_dict=journal_info)
     print '{} update success!'.format(JOURNAL_COLLECTION)
+    mongo_obj.close()
 
     for journal in journal_info:
         op_on_mongo_match_collection.apply_async(args=(journal, journal_info))
 
+'''
+领域划分需求，利用celery并发写入MongoDB
+'''
 if __name__ == '__main__':
 
     main()
 
-    # cate_list = range(START_CODE, END_CODE)
-    # journal_info = get_journal_info(cate_list)
-    # print len(journal_info)
-    #
-    # mongo_obj = SJR_mongodb()
-    #
-    # try:
-    #     mongo_obj.insert_journal_collection(journal_dict=journal_info)
-    #     print '{} update success!'.format(JOURNAL_COLLECTION)
-    #
-    #     mongo_obj.match_journal_area_categories(journal_dict=journal_info)
-    #     print '{} update success!'.format(MATCH_COLLECTION)
-    # except Exception, e:
-    #     print e.message
-    #     print traceback.format_exc()
-    #
-    # mongo_obj.close()
+'''
+领域划分需求，单进程写入MongoDB
+'''
+# if __name__ == '__main__':
+#
+#     cate_list = range(START_CODE, END_CODE)
+#     journal_info = get_journal_info(cate_list)
+#     print len(journal_info)
+#
+#     mongo_obj = SJR_mongodb()
+#
+#     try:
+#         mongo_obj.insert_journal_collection(journal_dict=journal_info)
+#         print '{} update success!'.format(JOURNAL_COLLECTION)
+#
+#         mongo_obj.match_journal_area_categories(journal_dict=journal_info)
+#         print '{} update success!'.format(MATCH_COLLECTION)
+#     except Exception, e:
+#         print e.message
+#         print traceback.format_exc()
+#
+#     mongo_obj.close()
