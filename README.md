@@ -1,8 +1,10 @@
 SJR_collect
 ===
-**Microsoft database Processing**
+**Crawler of "Scimago Journal & Country Rank"**
 
-**Ps:新版程序配置celery并发50个worker写入数据库提高效率**
+**https://www.scimagojr.com**
+
+**Ps: 新版程序配置celery并发50个worker写入数据库提高效率**
 
 ## 环境依赖
 **Python 2.7**
@@ -14,34 +16,32 @@ SJR_collect
 ## 运行步骤
 
 1. 安装python第三方库
-   
+
    `pip install xxx`
-   
-   ```
-    lxml==4.2.2
-    pymongo==3.6.1
-	requests==2.18.1
-	virtualenv==16.0.0
-	celery==3.1.25（windows不支持4.0版）
-	celery-with-redis
+
+   ```shell
+   lxml==4.2.2
+   pymongo==3.6.1
+   requests==2.18.1
+   virtualenv==16.0.0
+   celery==3.1.25     #（windows不支持4.0版）
+   celery-with-redis
    ```
 
-2. 克隆到本地仓库
    
-   `git clone https://github.com/lyandut/SJR_collect.git` 
 
-3. 运行程序
-    
+2. 运行程序
+
     `run.py`中编写了两个运行方法`if __name__ == '__main__':`,
-    
+
     - 默认使用celery任务队列并发写入MongoDB：
-    
+
         `celery -A proj worker -c 50 -l info`
         
         `python run.py`
-     
+
     - 如果想运行单进程写入MongoDB的方法，请注释/取消注释相应的代码，然后运行：
-        
+      
         `python run.py`
 
 ## 目录结构
@@ -122,4 +122,3 @@ SUBJECT_AREA = "Materials Science"
 
 - MongoDB 好用也好坑……
 
-- 以后再写。
